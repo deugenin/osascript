@@ -1,0 +1,31 @@
+#! /usr/bin/osascript
+#
+# Author: Daniel Eugenin M. <deugenin itlinux.cl>
+# This script open a new iTerm2 window, with 4 tabs, and connect via SSH to three servers
+# After connect via ssh, execute "sudo su -" and "mailq" commands.
+#
+
+
+
+set servers to { "server-01.domain.com", "server-02.domain.com", "server-03.domain.com" }
+
+tell application "iTerm2"
+   # crea una nueva ventana
+   create window with default profile
+
+   set n to count of servers
+   tell current window
+     repeat with i from 1 to n
+        create tab with default profile
+        tell tab i
+          launch session "Default Session"
+          tell the last session
+            write text "ssh " & (item i of servers)
+            write text "sudo su -"
+            write text "mailq"
+          end tell
+        end tell
+      end repeat
+   end tell
+
+end tell
