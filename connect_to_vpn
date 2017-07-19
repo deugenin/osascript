@@ -1,0 +1,22 @@
+#! /usr/bin/osascript
+# Script to connect to VPN 
+
+set vpn_name to "'NAME_OF_VPN_HERE'"
+set vpn_password to "PASS_OF_VPN_HERE"
+
+tell application "System Events"
+      # Verifica si es que ya esta conectado a la VPN
+      set rc to do shell script "scutil --nc status " & vpn_name
+
+      if rc starts with "Connected" then
+	#tell app "System Events" to display dialog "Ya esta conectado a " & vpn_name
+	display notification "Ya esta conectado a " & vpn_name  with title "CONEXION a VPN"
+      else
+	# Establece la conexion
+        do shell script "scutil --nc start " & vpn_name
+        delay 2
+	# Escribe la clave de la VPN
+        keystroke vpn_password
+        keystroke return
+      end if
+end tell
