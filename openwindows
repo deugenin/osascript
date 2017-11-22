@@ -1,0 +1,35 @@
+#! /usr/bin/osascript
+
+set servers to { "mta-in-01.zboxapp.com", "mta-in-02.zboxapp.com", "mta-out-01.zboxapp.com", "mta-out-02.zboxapp.com" }
+
+tell application "System Events"
+	tell application "iTerm2"
+ 	# crea una nueva ventana
+	   create window with default profile
+
+	set n to count of servers
+  	 tell current window
+    	 repeat with i from 1 to n
+     	   create tab with default profile
+     	   tell tab i
+     	     launch session "Default Session"
+     	     tell the last session
+     	       write text "ssh " & (item i of servers)
+     	       write text "sudo su -"
+     	       write text "mailq"
+     	     end tell
+     	   end tell
+     	 end repeat
+   	end tell
+	end tell
+	keystroke "a" using {control down}
+
+	tell application "Safari"
+	   activate
+	   open location "www.google.cl"
+	end tell
+	keystroke "w" using {control down}
+
+	tell application "Notes" to activate
+	keystroke "e" using {control down}
+end tell
