@@ -1,4 +1,6 @@
 #! /usr/bin/osascript
+# Script open iTerm, Google Chrome, and Notes apps
+# Use Divvy shorcuts to move windows
 
 set servers to { "mta-in-01.zboxapp.com", "mta-in-02.zboxapp.com", "mta-out-01.zboxapp.com", "mta-out-02.zboxapp.com" }
 
@@ -24,7 +26,7 @@ tell application "System Events"
 	end tell
 	keystroke "a" using {control down}
 
-	tell application "Safari"
+	tell application "Google Chrome"
 	   activate
 	   open location "www.google.cl"
 	end tell
